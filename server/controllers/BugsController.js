@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { bugService } from "../services/BugService";
+import { noteService } from "../services/NoteService";
 
 export class BugsController extends BaseController {
   constructor() {
@@ -10,10 +11,10 @@ export class BugsController extends BaseController {
       .use(auth0provider.getAuthorizedUserInfo)
       .get("", this.getAll)
       .get("/:id", this.getById)
-      //.get("/:id/notes", this.getNotesByBugId)
+      .get("/:id/notes", this.getNotesByBugId)
       .post("", this.create)
       .put("/:id", this.edit)
-      .delete("/:id", this.delete);
+      .delete("/:id", this.close);
   }
 
   async getAll(req, res, next) {
@@ -32,14 +33,14 @@ export class BugsController extends BaseController {
       next(error);
     }
   }
-  // async getNotesByBugId(req, res, next) {
-  //   try {
-  //     let data = await noteService.getNotesByBoardId(req.params.id);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async getNotesByBugId(req, res, next) {
+    try {
+      let data = await noteService.getNotesByBugId(req.params.id);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   async create(req, res, next) {
     try {
       req.body.creatorEmail = req.userInfo.email;
@@ -62,12 +63,12 @@ export class BugsController extends BaseController {
       next(error);
     }
   }
-  async delete(req, res, next) {
+  async close(req, res, next) {
     try {
       // DO NOT DELETE
       // simply PUT the bug status to closed
       // and user validated by email
-      let data = await bugService.delete(
+      let data = await bugService.close(
         req.params.id,
         req.userInfo.email,
         req.body

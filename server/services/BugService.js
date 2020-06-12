@@ -29,10 +29,12 @@ class BugService {
     }
     return data;
   }
-  async delete(id, userEmail, update) {
+  async close(id, userEmail, update) {
     update.closed = true;
-    // REVIEW verify that the date is correct and the user email is validated.
     update.closedDate = new Date();
+    // REVIEW verify that the date is correct and the user email is validated.
+    // Mark was saying delete does not take in a body and simply creating a pojo
+    // would be just fine here.
     let data = await dbContext.Bugs.findByIdAndUpdate(
       { _id: id, creatorEmail: userEmail },
       update,
