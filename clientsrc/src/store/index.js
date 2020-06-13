@@ -42,10 +42,11 @@ export default new Vuex.Store({
       }
     },
     // FIXME does not successfully update the profile on the database.
-    async updateProfile({ commit, dispatch }, profile) {
+    async updateProfile({ commit, dispatch }, dataObj) {
       try {
-        let res = await api.put("profile", profile);
-        commit("setProfile", profile);
+        let res = await api.put("profile/" + dataObj.id, dataObj);
+        debugger;
+        commit("setProfile", res.data);
       } catch (error) {
         console.error(error);
       }
