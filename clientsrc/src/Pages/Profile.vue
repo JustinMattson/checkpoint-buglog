@@ -70,10 +70,6 @@ export default {
   name: "Profile",
   data() {
     return {
-      // newProfile: {
-      //   name: "",
-      //   picture: ""
-      // },
       edit: false,
       fontSize: "10px",
       color: "#808"
@@ -86,8 +82,7 @@ export default {
   },
   methods: {
     updateProfile() {
-      this.$store.dispatch("updateProfile", { ...this.profile });
-      this.newProfile = {};
+      this.$store.dispatch("updateProfile", this.profile);
       this.edit = false;
     },
     toggleEdit() {

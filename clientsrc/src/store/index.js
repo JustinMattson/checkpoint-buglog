@@ -31,6 +31,8 @@ export default new Vuex.Store({
     resetBearer() {
       api.defaults.headers.authorization = "";
     },
+
+    //#region PROFLIE
     async getProfile({ commit }) {
       try {
         let res = await api.get("profile");
@@ -39,6 +41,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    // FIXME does not successfully update the profile on the database.
     async updateProfile({ commit, dispatch }, profile) {
       try {
         let res = await api.put("profile", profile);
@@ -47,5 +50,6 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    //#endregion
   },
 });
