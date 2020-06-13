@@ -6,7 +6,10 @@ class BugService {
     return await dbContext.Bugs.find({}).populate("creator", "name picture");
   }
   async getById(id) {
-    let data = await dbContext.Bugs.findOne({ _id: id });
+    let data = await dbContext.Bugs.findOne({ _id: id }).populate(
+      "creator",
+      "name picture"
+    );
     if (!data) {
       throw new BadRequest("Invalid ID");
     }

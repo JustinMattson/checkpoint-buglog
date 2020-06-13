@@ -17,7 +17,10 @@ class NoteService {
     return data;
   }
   async getNotesByBugId(id) {
-    return await dbContext.Notes.find({ bug: id });
+    return await dbContext.Notes.find({ bug: id }).populate(
+      "creator",
+      "name picture"
+    );
   }
   // async edit(id, bugId, userEmail, update) {
   //   let bugData = await dbContext.Bugs.findOne({ id: bugId })

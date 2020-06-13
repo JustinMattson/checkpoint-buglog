@@ -25,8 +25,11 @@ export default {
   async beforeCreate() {
     await onAuth();
     if (this.$auth.isAuthenticated) {
+      //NOTE if you want to do something everytime the user logs in, do so here
+      //this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("getProfile");
+      this.$store.dispatch("getBugList");
     }
   },
   components: {
@@ -52,5 +55,8 @@ main {
 }
 footer {
   min-height: 1vh;
+}
+.action {
+  cursor: pointer;
 }
 </style>

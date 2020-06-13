@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 import router from "../router";
+import { startSession, STATES } from "mongoose";
 
 Vue.use(Vuex);
 
@@ -18,10 +19,25 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     profile: {},
+    bugs: [],
+    activeBug: {},
+    notes: {},
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
+    },
+    addBug(state, bug) {
+      state.bugs.push(bug);
+    },
+    setBugs(state, bugs) {
+      state.bugs = bugs;
+    },
+    setActiveBug(state, bug) {
+      state.activeBug = bug;
+    },
+    setNotes(state, notes) {
+      Vue.set(state.notes, notes.bugId, notes.data);
     },
   },
   actions: {
@@ -32,6 +48,37 @@ export default new Vuex.Store({
       api.defaults.headers.authorization = "";
     },
 
+    //#region BUGs
+    async getBugList({ commit, dispatch }) {
+      try {
+        await api.get("bugs").then((res) => {
+          commit("setBugs", res.data);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getActiveBug({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("bugs/" + id);
+        commit("setActiveBug", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    //#endregion
+
+    //#region NOTES
+    async getNotes({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("bugs/" + id + "/notes");
+        commit("setNotes", { bugId: id, data: res.data });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    //#region
+
     //#region PROFLIE
     async getProfile({ commit }) {
       try {
@@ -41,7 +88,6 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    // FIXME does not successfully update the profile on the database.
     async updateProfile({ commit, dispatch }, dataObj) {
       try {
         let res = await api.put("profile/" + dataObj.id, dataObj);
