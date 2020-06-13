@@ -12,17 +12,17 @@ let baseUrl = location.host.includes("localhost")
 let api = Axios.create({
   baseURL: baseUrl + "api",
   timeout: 3000,
-  withCredentials: true
+  withCredentials: true,
 });
 
 export default new Vuex.Store({
   state: {
-    profile: {}
+    profile: {},
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
-    }
+    },
   },
   actions: {
     setBearer({}, bearer) {
@@ -38,6 +38,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
-    }
-  }
+    },
+    async updateProfile({ commit, dispatch }, profile) {
+      try {
+        let res = await api.put("profile", profile);
+        commit("setProfile", profile);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 });
