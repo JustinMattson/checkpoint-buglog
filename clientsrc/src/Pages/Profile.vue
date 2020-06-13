@@ -17,9 +17,9 @@
     </p>
     <p class="text-muted">Click on profile image to edit user profile.</p>
 
-    <form class="form" v-if="edit" style="width:100%;" @submit.prevent="updateProfile">
+    <form class="form text-left" v-if="edit" style="width:100%;" @submit.prevent="updateProfile">
       <div class="form-group">
-        <label for></label>
+        <label class="m-0" for>Update Name...</label>
         <input
           type="text"
           name="name"
@@ -29,6 +29,7 @@
           placeholder="Name..."
           required
         />
+        <label class="m-0" for>Update Image URL...</label>
         <input
           type="text"
           name="picture"

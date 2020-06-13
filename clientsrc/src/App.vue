@@ -1,8 +1,20 @@
 <template>
-  <div id="app">
-    <navbar />
-    <router-view />
-  </div>
+<div id="app">
+  <body>
+    <header>
+      <navbar />
+    </header>
+    <main>
+      <router-view />
+    </main>
+    <footer class="text-center text-light bg-dark p-2">
+      <span style="height:15px">
+        Made with
+        <img src="../src/assets/logo.png" style="height: 1em" /> by Justin Mattson
+      </span>
+    </footer>
+  </body>
+</div>
 </template>
 
 <script>
@@ -18,8 +30,8 @@ export default {
     }
   },
   components: {
-    Navbar,
-  },
+    Navbar
+  }
 };
 </script>
 
@@ -27,4 +39,18 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header {
+  min-height: 1vh;
+}
+main {
+  flex-grow: 1;
+}
+footer {
+  min-height: 1vh;
+}
 </style>
