@@ -11,7 +11,9 @@
     <p>
       {{ profile.email }}
       <br />
-      <span class="text-danger" :style="{fontSize:fontSize}">{{profile.id}}</span>
+      <!-- Last Updated: {{prettyDate}}
+      <br />-->
+      <!-- <span class="text-danger" :style="{fontSize:fontSize}">{{profile.id}}</span> -->
     </p>
     <p class="text-muted">Click on profile image to edit user profile.</p>
 
@@ -40,7 +42,7 @@
         <!-- <p class="text-warning">* Please refresh page after clicking submit.</p> -->
       </div>
     </form>
-    <div id="profile-object" class="text-left" :style="{fontSize:fontSize,color}">
+    <div id="profile-object" class="text-left text-muted" :style="{fontSize:fontSize}">
       <div>
         __v: {{profile.__v}}
         <br />
@@ -73,6 +75,13 @@ export default {
       edit: false,
       fontSize: "10px",
       color: "#808"
+      // prettyDate: new Date(this.profile.createdAt).toLocaleDateString("eu-US", {
+      //   year: "numeric",
+      //   month: "short",
+      //   day: "numeric",
+      //   hour: "2-digit",
+      //   minute: "2-digit"
+      // })
     };
   },
   computed: {
