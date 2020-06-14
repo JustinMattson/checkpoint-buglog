@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 import router from "../router";
-import { startSession, STATES } from "mongoose";
 
 Vue.use(Vuex);
 
@@ -42,6 +41,10 @@ export default new Vuex.Store({
     addNote(state, note) {
       state.notes[note.bugId].push(note);
     },
+    removeNote(state, note) {
+      let index = state.notes[note.bug].findIndex((n) => n.id == note.id);
+      state.notes[note.bug].splice(index, 1);
+    },
   },
   actions: {
     setBearer({}, bearer) {
@@ -69,6 +72,15 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async addBug({ commit, dispatch }, bugData) {
+      try {
+        await api.post("bugs", bugData).then((serverBoard) => {
+          dispatch("getBugList");
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
 
     //#region NOTES
@@ -84,6 +96,14 @@ export default new Vuex.Store({
       try {
         let res = await api.post("notes", data);
         commit("addNote", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteNote({ commit, dispatch }, note) {
+      try {
+        let res = await api.delete("notes/" + note.id);
+        commit("removeNote", note);
       } catch (error) {
         console.error(error);
       }

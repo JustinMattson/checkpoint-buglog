@@ -11,13 +11,13 @@
           <!-- ADD BUG FORM -->
           <div class="col-12 mt-3" v-show="bugForm">
             STUPID FORM
-            <!-- <form class="d-inline" @submit.prevent="addBug">
-              <input type="text" name="title" v-model="newBug.title" placeholder="Bug Title..." />
+            <!-- <form @submit.prevent="addBug">
+              <input type="text" placeholder="Bug Title..." v-model="newBug.title" required />
               <input
-                type="textarea"
-                name="description"
+                type="text"
                 v-model="newBug.description"
                 placeholder="Bug Description..."
+                required
               />
               <button type="submit" class="btn btn-outline-primary">Submit</button>
             </form>-->
@@ -60,6 +60,8 @@ export default {
       color: "#F00",
       bugForm: false
       // newBug: {
+      //   title: "",
+      //   description: "",
       //   bugId: this.bug.id
       // }
     };
