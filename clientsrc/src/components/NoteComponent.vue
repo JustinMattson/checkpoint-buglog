@@ -4,7 +4,11 @@
       <div class="col-3 align-self-center">{{note.creator.name}}</div>
       <div class="col-8">{{note.content}}</div>
       <div class="col-1 text-center align-self-center">
-        <i class="far fa-trash-alt text-danger action" @click="deleteNote" v-if="!bug.closed"></i>
+        <i
+          class="far fa-trash-alt text-danger action"
+          @click="deleteNote"
+          v-if="!bug.closed && note.creatorEmail == profile.email"
+        ></i>
       </div>
       <!-- REVIEW if time permits, updating a comment is not required by the user story -->
       <!-- <div class="col-12">
@@ -45,6 +49,9 @@ export default {
   computed: {
     bug() {
       return this.$store.state.activeBug;
+    },
+    profile() {
+      return this.$store.state.profile;
     }
   },
   methods: {
