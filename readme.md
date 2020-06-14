@@ -139,15 +139,15 @@ Delete
 [+] - Users can only modify/delete data they created
 [+] - Bugs can be created from the Home view
 [ ] - Bugs can be closed from the BugDetails view
-[ ] - User is prompted "are you sure?" when closing a Bug
+[+] - User is prompted "are you sure?" when closing a Bug
 [ ] - Notes can be added and removed from a bug in the BugDetails view
 [ ] - User prompt to remove Note from Bug
-[ ] - A Bug can be edited
-[ ] - Cannot edit a Bug after it is closed
+[+] - A Bug can be edited
+[+] - Cannot edit a Bug after it is closed
 
 #### Challenges
 
-[ ] - Implement user auth
+[+] - Implement user auth
 [ ] - Modals for creating Bugs
 [ ] - Modals for creating Notes
-[ ] - Use sweet alert for prompts
+[+] - Use sweet alert for prompts

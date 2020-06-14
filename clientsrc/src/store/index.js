@@ -34,7 +34,7 @@ export default new Vuex.Store({
       state.bugs.push(bug);
     },
     // FIXME updateBug is not forcing render of udpated data.
-    // Is Closed and Last Updated should update - only after refresh. Why?
+    // Is Closed status and Last Updated should update - why?
     updateBug(state, update) {
       let foundBug = state.bugs.find((b) => b.id == update.id);
       foundBug = update;
