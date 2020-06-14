@@ -39,6 +39,9 @@ export default new Vuex.Store({
     setNotes(state, notes) {
       Vue.set(state.notes, notes.bugId, notes.data);
     },
+    addNote(state, note) {
+      state.notes[note.bugId].push(note);
+    },
   },
   actions: {
     setBearer({}, bearer) {
@@ -73,6 +76,14 @@ export default new Vuex.Store({
       try {
         let res = await api.get("bugs/" + id + "/notes");
         commit("setNotes", { bugId: id, data: res.data });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addNote({ commit, dispatch }, data) {
+      try {
+        let res = await api.post("notes", data);
+        commit("addNote", res.data);
       } catch (error) {
         console.error(error);
       }

@@ -31,12 +31,6 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <!-- TODO make report bug button functional -->
-        <button
-          class="btn btn-outline-primary mr-3"
-          @click="reportBug"
-          v-if="$auth.isAuthenticated"
-        >Report Bug</button>
         <button class="btn btn-success" @click="login" v-if="!$auth.isAuthenticated">Login</button>
         <button class="btn btn-outline-danger" @click="logout" v-else>logout</button>
       </span>
@@ -60,8 +54,7 @@ export default {
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
-    },
-    reportBug() {}
+    }
   }
 };
 </script>

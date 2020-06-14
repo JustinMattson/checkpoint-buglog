@@ -25,7 +25,15 @@
     </div>
     <note v-for="note in notes" :key="note.id" :note="note" />
     <div class="col-12 text-right m-2">
-      <button class="btn btn-outline-success justify-right" @click="addNote">Add Note</button>
+      <!-- <i class="fas fa-plus text-success action" @click="toggleNoteForm">Add Note</i> -->
+      <i class="fas fa-plus text-success action">Add Note</i>
+
+      <!-- NEW NOTE FORM -->
+      <!-- <form class="d-inline" v-if="noteForm" @submit.prevent="createNote"> -->
+      <!-- <form class="d-inline" @submit.prevent="createNote">
+        <input type="textarea" name="content" v-model="note.content" placeholder="Note Body..." />
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+      </form>-->
     </div>
   </div>
 </template>
@@ -38,7 +46,11 @@ export default {
   props: [],
   data() {
     return {
-      edit: false
+      edit: false,
+      noteForm: false,
+      note: {
+        bugId: this.bug.id
+      }
     };
   },
   mounted() {
@@ -57,8 +69,16 @@ export default {
     toggleEdit() {
       this.edit = !this.edit;
     },
+    // toggleNoteForm() {
+    //   this.newNoteForm = !this.newNoteForm;
+    // },
     closeBug() {},
-    addNote() {}
+    createNote() {
+      this.$store.dispatch("addNote", { ...this.note });
+      this.note = {
+        bugId: this.bug.id
+      };
+    }
   },
   components: {
     Note

@@ -10,7 +10,7 @@ export class NotesController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .post("", this.create)
-      // .put("/:id", this.edit)  // Strethy
+      // .put("/:id", this.edit)  // Stretchy
       .delete("/:id", this.delete);
   }
 

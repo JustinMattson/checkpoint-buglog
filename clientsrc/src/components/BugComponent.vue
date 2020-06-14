@@ -5,14 +5,13 @@
     <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">
       <div class="row border border-info mx-1">
         <div class="col-3">{{bug.title}}</div>
-        <div class="col-3">{{bug.creator.name}}</div>
-        <div class="col-2 text-center">{{bug.closed}}</div>
-        <div class="col-4 text-right">{{prettyDate}}</div>
+        <div class="col-3 align-self-center">{{bug.creator.name}}</div>
+        <div class="col-2 text-center align-self-center">{{bug.closed}}</div>
+        <div class="col-4 text-right align-self-center">{{prettyDate}}</div>
       </div>
     </router-link>
   </div>
 </template>
-
 
 <script>
 import Note from "@/components/NoteComponent.vue";
