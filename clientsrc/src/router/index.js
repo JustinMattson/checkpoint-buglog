@@ -28,6 +28,10 @@ const routes = [
     component: Profile,
     beforeEnter: authGuard,
   },
+  {
+    path: "*",
+    redirect: "/",
+  },
 ];
 
 const router = new VueRouter({

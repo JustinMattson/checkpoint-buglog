@@ -51,10 +51,10 @@ export default {
       fontSize: "10px",
       color: "#aaa",
       edit: false,
-      noteForm: false,
-      note: {
-        bugId: this.bug.id
-      }
+      noteForm: false
+      // note: {
+      //   bugId: this.bug.id
+      // }
     };
   },
   mounted() {

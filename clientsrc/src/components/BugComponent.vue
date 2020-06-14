@@ -15,7 +15,7 @@
           @click="toggleEdit"
         ></i>
       </div>
-      <div class="col-4 text-right align-self-center">{{prettyDate}}</div>
+      <div class="col-4 text-right align-self-center">{{prettyDate}} | {{bug.updatedAt}}</div>
     </div>
     <div class="row border border-info mx-1" v-if="bug.closed" :style="{color:isClosed.color}">
       <div class="col-3">
@@ -99,7 +99,8 @@ export default {
       this.edit = !this.edit;
     },
     editBug() {
-      this.$store.dispatch("editBug", this.bug);
+      let data = this.$store.dispatch("editBug", this.bug);
+      debugger;
       this.edit = false;
     },
     closeBug() {

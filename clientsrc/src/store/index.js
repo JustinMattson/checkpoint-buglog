@@ -20,7 +20,6 @@ export default new Vuex.Store({
     profile: {},
     bugs: [],
     activeBug: {},
-    foundBug: {},
     notes: {},
   },
   mutations: {
@@ -93,6 +92,7 @@ export default new Vuex.Store({
         let id = update.id;
         let res = await api.put("bugs/" + id, update);
         commit("updateBug", res.data);
+        return res.data;
       } catch (error) {
         console.error(error);
       }
