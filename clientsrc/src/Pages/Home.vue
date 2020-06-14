@@ -49,7 +49,10 @@
       <div class="row d-flex mt-2">
         <div class="col-3 text-center font-weight-bold mb-2">Title</div>
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
-        <div class="col-2 text-center font-weight-bold mb-2">Is Closed</div>
+        <div class="col-2 text-center font-weight-bold mb-2">
+          Is Closed&nbsp;
+          <!-- <i class="fas fa-filter action" @click="toggleBugForm"></i> -->
+        </div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
         <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
       </div>
@@ -63,9 +66,9 @@ export default {
   name: "home",
   data() {
     return {
-      // fontSize: "10px",
       color: "#F00",
       bugForm: false,
+      // filter: false,
       newBug: {}
     };
   },
@@ -76,6 +79,9 @@ export default {
     toggleBugForm() {
       this.bugForm = !this.bugForm;
     },
+    // toggleFilter() {
+    //   this.filter = !this.filter;
+    // },
     addBug() {
       this.$store.dispatch("addBug", { ...this.newBug });
       this.newBug = {};
