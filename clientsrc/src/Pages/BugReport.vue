@@ -13,10 +13,11 @@
       </div>
       <div class="col-12 border border-secondary">{{bug.description}}</div>
       <small class="text-muted ml-2">{{bug.id}}</small>
+      <div class="col-12 text-right">
+        <button class="btn btn-outline-danger justify-right" @click="closeBug">Close</button>
+      </div>
     </div>
-    <div class="col-12 text-right">
-      <button class="btn btn-outline-danger justify-right" @click="closeBug">Close</button>
-    </div>
+
     <!-- Bug Notes -->
     <h3 class="m-2">Notes:</h3>
     <div class="row m-2">
@@ -75,9 +76,6 @@ export default {
     // toggleNoteForm() {
     //   this.newNoteForm = !this.newNoteForm;
     // },
-    addBug() {
-      this.edit = false;
-    },
     closeBug() {},
     createNote() {
       this.$store.dispatch("addNote", { ...this.note });

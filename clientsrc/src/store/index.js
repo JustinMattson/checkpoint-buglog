@@ -26,11 +26,15 @@ export default new Vuex.Store({
     setProfile(state, profile) {
       state.profile = profile;
     },
+    setBugs(state, bugs) {
+      state.bugs = bugs;
+    },
     addBug(state, bug) {
       state.bugs.push(bug);
     },
-    setBugs(state, bugs) {
-      state.bugs = bugs;
+    updateBug(state, update) {
+      let foundBug = state.bugs.find((b) => b.id == update.id);
+      foundBug = update;
     },
     setActiveBug(state, bug) {
       state.activeBug = bug;
@@ -81,11 +85,10 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async editBug({ commit, dispatch }, data) {
+    async editBug({ commit, dispatch }, update) {
       try {
-        let id = data.id;
-        let user = data.email;
-        let res = await api.delete("bugs/" + id, user);
+        let id = update.id;
+        let res = await api.put("bugs/" + id, update);
         commit("updateBug", res.data);
       } catch (error) {
         console.error(error);
@@ -142,7 +145,6 @@ export default new Vuex.Store({
     async updateProfile({ commit, dispatch }, dataObj) {
       try {
         let res = await api.put("profile/" + dataObj.id, dataObj);
-        debugger;
         commit("setProfile", res.data);
       } catch (error) {
         console.error(error);
