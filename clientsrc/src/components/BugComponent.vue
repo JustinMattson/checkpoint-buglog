@@ -100,7 +100,6 @@ export default {
     },
     editBug() {
       let data = this.$store.dispatch("editBug", this.bug);
-      debugger;
       this.edit = false;
     },
     closeBug() {
