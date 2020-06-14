@@ -8,7 +8,7 @@
       </div>
       <div class="col-3 pl-5 align-self-center">{{bug.creator.name}}</div>
       <div class="col-2 text-center align-self-center">
-        {{closed}}&nbsp;
+        {{bug.closed}}&nbsp;
         <i
           class="fas fa-pencil-alt action"
           v-if="!this.closed && bug.creatorEmail == profile.email"

@@ -44,8 +44,10 @@ export default new Vuex.Store({
     setNotes(state, notes) {
       Vue.set(state.notes, notes.bugId, notes.data);
     },
-    addNote(state, note) {
-      state.notes[note.bugId].push(note);
+    // FIXME adding note is not forcing the render of new data.
+    newNote(state, note) {
+      debugger;
+      state.notes[note.bug].push(note);
     },
     removeNote(state, note) {
       let index = state.notes[note.bug].findIndex((n) => n.id == note.id);
@@ -118,10 +120,11 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    // FIXME Page is not refreshing when not is committed to store.
     async addNote({ commit, dispatch }, data) {
       try {
         let res = await api.post("notes", data);
-        commit("addNote", res.data);
+        commit("newNote", res.data);
       } catch (error) {
         console.error(error);
       }
