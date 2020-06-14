@@ -49,7 +49,7 @@
       <div class="row d-flex mt-2">
         <div class="col-3 text-center font-weight-bold mb-2">Title</div>
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
-        <div class="col-2 text-center font-weight-bold mb-2">Is Open</div>
+        <div class="col-2 text-center font-weight-bold mb-2">Is Closed</div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
         <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
       </div>

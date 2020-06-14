@@ -20,6 +20,7 @@ export default new Vuex.Store({
     profile: {},
     bugs: [],
     activeBug: {},
+    foundBug: {},
     notes: {},
   },
   mutations: {
@@ -32,6 +33,8 @@ export default new Vuex.Store({
     addBug(state, bug) {
       state.bugs.push(bug);
     },
+    // FIXME updateBug is not forcing render of udpated data.
+    // Is Closed and Last Updated should update - only after refresh. Why?
     updateBug(state, update) {
       let foundBug = state.bugs.find((b) => b.id == update.id);
       foundBug = update;
@@ -94,11 +97,11 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async closeBug({ commit, dispatch }, data) {
+    async closeBug({ commit, dispatch }, update) {
       try {
-        let id = data.id;
-        let user = data.email;
-        let res = await api.delete("bugs/" + id, user);
+        let id = update.id;
+        let user = update.email;
+        let res = await api.delete("bugs/" + id, update);
         commit("updateBug", res.data);
       } catch (error) {
         console.error(error);

@@ -38,11 +38,14 @@ class BugService {
     // REVIEW verify that the date is correct and the user email is validated.
     // Mark was saying delete does not take in a body and simply creating a pojo
     // would be just fine here.
-    let data = await dbContext.Bugs.findByIdAndUpdate(
+    let data = await dbContext.Bugs.findOneAndUpdate(
       { _id: id, creatorEmail: userEmail },
       update,
       { new: true }
     );
+    if (!data) {
+      throw new BadRequest("Invalid ID");
+    }
     return data;
   }
 }

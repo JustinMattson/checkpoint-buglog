@@ -37,7 +37,10 @@
             style="width:100%;height:15em;"
             required
           />
-          <button class="btn btn-outline-primary" type="submit">Update Bug</button>
+          <span class="d-flex justify-content-between">
+            <button class="btn btn-outline-primary" type="submit">Update Bug</button>
+            <button class="btn btn-outline-success" type="button" @click="closeBug">Close Bug</button>
+          </span>
         </div>
       </form>
     </div>
@@ -79,6 +82,7 @@ export default {
     },
     closeBug() {
       this.$store.dispatch("closeBug", this.bug);
+      this.edit = false;
     }
   },
   components: {
