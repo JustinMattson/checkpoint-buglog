@@ -8,14 +8,15 @@
       </div>
       <div class="col-3 pl-5 align-self-center">{{bug.creator.name}}</div>
       <div class="col-2 text-center align-self-center">
-        {{bug.closed}}&nbsp;
+        {{closed}}&nbsp;
         <i
           class="fas fa-pencil-alt action"
-          v-if="!bug.closed && bug.creatorEmail == profile.email"
+          v-if="!this.closed && bug.creatorEmail == profile.email"
           @click="toggleEdit"
         ></i>
       </div>
-      <div class="col-4 text-right align-self-center">{{prettyDate}} | {{bug.updatedAt}}</div>
+      <!-- prettyDate requires update after edit -->
+      <div class="col-4 text-right align-self-center">{{prettyDate}}</div>
     </div>
     <div class="row border border-info mx-1" v-if="bug.closed" :style="{color:isClosed.color}">
       <div class="col-3">
@@ -23,7 +24,7 @@
       </div>
       <div class="col-3 pl-5 align-self-center">{{bug.creator.name}}</div>
       <div class="col-2 text-center align-self-center">
-        {{bug.closed}}&nbsp;
+        {{bug.closed}}
         <i
           class="fas fa-pencil-alt action"
           v-if="!bug.closed && bug.creatorEmail == profile.email"
@@ -73,6 +74,7 @@ export default {
       isClosed: {
         color: "#999"
       },
+      // closed: this.bug.closed,
       prettyDate: new Date(this.bug.updatedAt).toLocaleDateString("eu-US", {
         year: "numeric",
         month: "short",
@@ -100,6 +102,7 @@ export default {
     },
     editBug() {
       let data = this.$store.dispatch("editBug", this.bug);
+      this.prettyDate = this.bug.updatedAt;
       this.edit = false;
     },
     closeBug() {
@@ -113,7 +116,8 @@ export default {
         dangerMode: true
       }).then(willDelete => {
         if (willDelete) {
-          this.$store.dispatch("closeBug", this.bug);
+          let data = this.$store.dispatch("closeBug", this.bug);
+
           swal("Poof! Your comment has been closed!", {
             icon: "success"
           });
@@ -121,7 +125,8 @@ export default {
           swal("Close cancelled");
         }
       });
-
+      this.bug.closed = true;
+      debugger;
       this.edit = false;
     }
   },
