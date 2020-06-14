@@ -10,17 +10,31 @@
         <div class="row">
           <!-- ADD BUG FORM -->
           <div class="col-12 mt-3" v-show="bugForm">
-            STUPID FORM
-            <!-- <form @submit.prevent="addBug">
-              <input type="text" placeholder="Bug Title..." v-model="newBug.title" required />
-              <input
-                type="text"
-                v-model="newBug.description"
-                placeholder="Bug Description..."
-                required
-              />
-              <button type="submit" class="btn btn-outline-primary">Submit</button>
-            </form>-->
+            <form class="form" @submit.prevent="addBug" v-if="$auth.isAuthenticated && bugForm">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="title"
+                  v-model="newBug.title"
+                  placeholder="Bug Title..."
+                  style="width:100%;"
+                  required
+                />
+                <textarea
+                  type="text"
+                  name="description"
+                  v-model="newBug.description"
+                  placeholder="Bug Description..."
+                  style="width:100%;height:15em;"
+                  required
+                />
+                <!-- <small id="helpId" class="text-muted">Help text</small> -->
+                <i class="far fa-paper-plane action" type="submit">Send it</i>
+                <!-- <div class="col-12 d-flex justify-content-end mt-3" v-if="bugForm"> -->
+                <button class="btn btn-outline-primary" type="submit">Submit Bug</button>
+                <!-- </div> -->
+              </div>
+            </form>
           </div>
 
           <div class="col-12 d-flex justify-content-end mt-3" v-if="!bugForm">
@@ -29,13 +43,6 @@
               @click="toggleBugForm"
               v-if="$auth.isAuthenticated"
             >Report Bug</button>
-          </div>
-          <div class="col-12 d-flex justify-content-end mt-3" v-if="bugForm">
-            <button
-              class="btn btn-outline-primary"
-              @click="toggleBugForm"
-              v-if="$auth.isAuthenticated"
-            >Submit Bug</button>
           </div>
         </div>
 
@@ -57,13 +64,10 @@ export default {
   name: "home",
   data() {
     return {
+      // fontSize: "10px",
       color: "#F00",
-      bugForm: false
-      // newBug: {
-      //   title: "",
-      //   description: "",
-      //   bugId: this.bug.id
-      // }
+      bugForm: false,
+      newBug: {}
     };
   },
   mounted() {
@@ -72,13 +76,12 @@ export default {
   methods: {
     toggleBugForm() {
       this.bugForm = !this.bugForm;
+    },
+    addBug() {
+      this.$store.dispatch("addBug", { ...this.newBug });
+      this.newBug = {};
+      this.bugForm = false;
     }
-    // addBug() {
-    //   this.$store.dispatch("addBug", { ...this.newBug });
-    //   this.newBug = {
-    //     bugId: this.bug.id
-    //   };
-    // }
   },
   computed: {
     bugs() {

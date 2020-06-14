@@ -81,6 +81,26 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async editBug({ commit, dispatch }, data) {
+      try {
+        let id = data.id;
+        let user = data.email;
+        let res = await api.delete("bugs/" + id, user);
+        commit("updateBug", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async closeBug({ commit, dispatch }, data) {
+      try {
+        let id = data.id;
+        let user = data.email;
+        let res = await api.delete("bugs/" + id, user);
+        commit("updateBug", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
     //#endregion
 
     //#region NOTES

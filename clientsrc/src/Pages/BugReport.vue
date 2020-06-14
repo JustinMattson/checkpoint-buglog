@@ -3,7 +3,7 @@
     <h1 class="m-2">{{bug.title}}</h1>
     <div class="m-2 d-flex justify-content-between">
       <span>Submitted by: {{bug.creator.name}}</span>
-      <span>Is Open: {{bug.closed}}</span>
+      <span>Is Closed: {{bug.closed}}</span>
     </div>
     <!-- Bug Description -->
     <div class="row m-2">
@@ -12,6 +12,7 @@
         <i class="fas fa-pencil-alt action" @click="toggleEdit"></i>
       </div>
       <div class="col-12 border border-secondary">{{bug.description}}</div>
+      <small class="text-muted ml-2">{{bug.id}}</small>
     </div>
     <div class="col-12 text-right">
       <button class="btn btn-outline-danger justify-right" @click="closeBug">Close</button>
@@ -25,8 +26,8 @@
     </div>
     <note v-for="note in notes" :key="note.id" :note="note" />
     <div class="col-12 text-right m-2">
-      <!-- <i class="fas fa-plus text-success action" @click="toggleNoteForm">Add Note</i> -->
-      <i class="fas fa-plus text-success action">Add Note</i>
+      <i class="fas fa-plus text-success action" @click="toggleNote">Add Note</i>
+      <!-- <i class="fas fa-plus text-success action">Add Note</i> -->
 
       <!-- NEW NOTE FORM -->
       <!-- <form class="d-inline" v-if="noteForm" @submit.prevent="createNote"> -->
@@ -46,6 +47,8 @@ export default {
   props: [],
   data() {
     return {
+      fontSize: "10px",
+      color: "#aaa",
       edit: false,
       noteForm: false,
       note: {
@@ -72,12 +75,18 @@ export default {
     // toggleNoteForm() {
     //   this.newNoteForm = !this.newNoteForm;
     // },
+    addBug() {
+      this.edit = false;
+    },
     closeBug() {},
     createNote() {
       this.$store.dispatch("addNote", { ...this.note });
       this.note = {
         bugId: this.bug.id
       };
+    },
+    toggleNote() {
+      this.noteForm = !this.noteForm;
     }
   },
   components: {
