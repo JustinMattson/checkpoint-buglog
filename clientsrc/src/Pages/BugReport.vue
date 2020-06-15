@@ -4,7 +4,16 @@
       <span class="mt-3" style="fontSize:24pt;">
         <b>{{bug.title}}</b>
       </span>
-      <span class="mt-3" style="fontSize:24pt;">{{status}}</span>
+      <span class="mt-3 text-danger" style="fontSize:24pt;" v-show="bug.closed">
+        {{status}}
+        <!-- <br />
+        <small>{{bug.closed}}</small>-->
+      </span>
+      <span class="mt-3 text-success" style="fontSize:24pt;" v-show="!bug.closed">
+        {{status}}
+        <!-- <br />
+        <small>{{bug.closed}}</small>-->
+      </span>
       <!-- <span class="mt-3" style="fontSize:24pt;">{{this.status}}</span> -->
     </div>
 
@@ -79,10 +88,11 @@ export default {
   },
   onRouterLeave(to, from, next) {
     commit("setActiveBug", {});
+    status = "";
     next();
   },
-  mounted() {
-    this.$store.dispatch("getActiveBug", this.$route.params.bugId);
+  async mounted() {
+    await this.$store.dispatch("getActiveBug", this.$route.params.bugId);
     this.$store.dispatch("getNotes", this.$route.params.bugId);
     this.bug.closed ? (this.status = "Closed") : (this.status = "Open");
   },
@@ -126,6 +136,7 @@ export default {
             icon: "success"
           });
           this.bug.closed = true;
+          this.status = "Closed";
         } else {
           swal("Close cancelled");
         }

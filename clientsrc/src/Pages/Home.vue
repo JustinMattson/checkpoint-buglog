@@ -109,7 +109,8 @@ export default {
       this.bugForm = false;
       //FIXME this will need to be async?
       // how to pull the id from the new bug to route to the BugReport?
-      this.$router.push(res.data.id);
+      // need two params..name and params
+      this.router.push({ name: "bug", params: { id: res.data.id } });
     }
   },
   computed: {

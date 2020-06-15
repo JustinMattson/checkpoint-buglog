@@ -87,6 +87,7 @@ export default new Vuex.Store({
         //   dispatch("getBugList");
         // });
         let res = await api.post("bugs", bugData);
+        debugger;
         dispatch("getBugList");
         return res.data;
       } catch (error) {
