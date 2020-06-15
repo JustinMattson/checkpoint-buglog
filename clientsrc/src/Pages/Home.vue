@@ -53,12 +53,12 @@
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
         <div class="col-2 text-center font-weight-bold mb-2">
           Is Closed&nbsp;
-          <i class="fas fa-filter"></i>
-          <!-- <i class="fas fa-filter action" @click="toggleFilter">Is Closed</i> -->
+          <!-- <i class="fas fa-filter"></i> -->
+          <i class="fas fa-filter action" @click="toggleFilter">{{this.closedFilter}}</i>
         </div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
         <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
-        <!-- <bug v-for="bug in bugs" :key="bug.id" :bug="bug" v-show="this.closedFilter" /> -->
+        <!-- <bug v-for="bug in bugs" :key="bug.id" :bug="bug" v-if="this.closedFilter" /> -->
       </div>
     </div>
   </div>
@@ -72,7 +72,8 @@ export default {
     return {
       color: "#F00",
       bugForm: false,
-      // closedFilter: "!bug.closed",
+      // closedFilter: false,
+      closedFilter: "!bug.closed",
       newBug: {}
     };
   },
@@ -83,14 +84,15 @@ export default {
     toggleBugForm() {
       this.bugForm = !this.bugForm;
     },
-    // toggleFilter() {
-    //   debugger;
-    //   if (closedFilter == "!bug.closed") {
-    //     this.closedFilter = "bug.closed";
-    //   } else {
-    //     this.closedFilter = "!bug.closed";
-    //   }
-    // },
+    toggleFilter() {
+      // this.closedFilter = !this.closedFilter;
+
+      if (this.closedFilter == "!bug.closed") {
+        this.closedFilter = "bug.closed";
+      } else {
+        this.closedFilter = "!bug.closed";
+      }
+    },
     addBug() {
       this.$store.dispatch("addBug", { ...this.newBug });
       this.newBug = {};
@@ -103,6 +105,12 @@ export default {
   computed: {
     bugs() {
       return this.$store.state.bugs;
+    },
+    bugsOpen() {
+      return this.$store.state.bugs.filter(bc => bc.closed == false);
+    },
+    bugsClosed() {
+      return this.$store.state.bugs.filter(bc => bc.closed == true);
     },
     myProfile() {
       return this.$store.state.profile;

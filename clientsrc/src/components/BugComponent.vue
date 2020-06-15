@@ -12,7 +12,7 @@
         {{bug.closed}}&nbsp;
         <i
           class="fas fa-pencil-alt action"
-          v-if="!this.closed && bug.creatorEmail == profile.email"
+          v-if="!bug.closed && bug.creatorEmail == profile.email"
           @click="toggleEdit"
         ></i>
       </div>
