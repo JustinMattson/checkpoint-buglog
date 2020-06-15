@@ -20,7 +20,7 @@ export default new Vuex.Store({
     profile: {},
     bugs: [],
     activeBug: {},
-    notes: {},
+    notes: [],
   },
   mutations: {
     setProfile(state, profile) {
@@ -42,15 +42,17 @@ export default new Vuex.Store({
       state.activeBug = bug;
     },
     setNotes(state, notes) {
-      Vue.set(state.notes, notes.bugId, notes.data);
+      state.notes = notes;
+      // Vue.set(state.notes, notes.bugId, notes.data);
     },
-    // FIXME adding note is not forcing the render of new data.
+    // REVIEW adding note is not forcing the render of new data.
+    // due to notes is a simple array now - fixed
     newNote(state, note) {
-      state.notes[note.bug].push(note);
+      state.notes.push(note);
     },
     removeNote(state, note) {
-      let index = state.notes[note.bug].findIndex((n) => n.id == note.id);
-      state.notes[note.bug].splice(index, 1);
+      let index = state.notes.findIndex((n) => n.id == note.id);
+      state.notes.splice(index, 1);
     },
   },
   actions: {
@@ -117,7 +119,7 @@ export default new Vuex.Store({
     async getNotes({ commit, dispatch }, id) {
       try {
         let res = await api.get("bugs/" + id + "/notes");
-        commit("setNotes", { bugId: id, data: res.data });
+        commit("setNotes", res.data);
       } catch (error) {
         console.error(error);
       }

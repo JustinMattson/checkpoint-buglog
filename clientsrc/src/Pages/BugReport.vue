@@ -54,7 +54,7 @@
     <div class="row border mx-1 mt-3" style="font-weight:bold;">
       <div class="col-3 align-self-center">Reported By</div>
       <div class="col-8">Message</div>
-      <div class="col-1 text-center align-self-center">Delete</div>
+      <div class="col-1 text-right align-self-center pl-0 pr-3">Delete</div>
     </div>
     <!-- {{profile.email}} -->
     <note v-for="note in notes" :key="note.id" :note="note" />
@@ -91,14 +91,11 @@ export default {
       return this.$store.state.activeBug;
     },
     notes() {
-      return this.$store.state.notes[this.bug.id];
+      return this.$store.state.notes;
     },
     profile() {
       return this.$store.state.profile;
     }
-    // bugStatus() {
-    //   this.bug.closed ? (this.status = "Closed") : (this.status = "Open");
-    // }
   },
   methods: {
     toggleNote() {
