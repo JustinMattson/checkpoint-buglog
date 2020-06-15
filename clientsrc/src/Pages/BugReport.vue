@@ -9,7 +9,7 @@
     </div>
 
     <div class="d-flex justify-content-between">
-      <span>
+      <span v-if="bug.creator">
         <b>Reported by: {{bug.creator.name}}</b>
       </span>
       <span>
@@ -76,6 +76,10 @@ export default {
         // creatorEmail: this.profile.email
       }
     };
+  },
+  onRouterLeave(to, from, next) {
+    commit("setActiveBug", {});
+    next();
   },
   mounted() {
     this.$store.dispatch("getActiveBug", this.$route.params.bugId);

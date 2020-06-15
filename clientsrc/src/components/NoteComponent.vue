@@ -1,6 +1,6 @@
 <template>
   <div class="note">
-    <div class="row border rounded border-success m-1 shadow bg-white">
+    <div class="row border rounded border-success m-1 shadow bg-white" v-if="note.creator">
       <div class="col-3 align-self-center">{{note.creator.name}}</div>
       <div class="col-8">{{note.content}}</div>
       <div class="col-1 text-center align-self-center">
