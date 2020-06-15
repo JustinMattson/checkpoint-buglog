@@ -2,7 +2,8 @@
   <div class="bug container-fluid">
     <!-- This is the component that will draw each bug item.
     Embedded within this componet will be the notes component.-->
-    <div class="row border rounded border-primary m-1 bg-white shadow" v-if="!bug.closed">
+    <!-- V-SHOW OPEN -->
+    <div class="row border rounded border-primary m-1 bg-white shadow" v-show="!bug.closed">
       <div class="col-3">
         <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">{{bug.title}}</router-link>
       </div>
@@ -15,10 +16,11 @@
           @click="toggleEdit"
         ></i>
       </div>
-      <!-- prettyDate requires update after edit -->
-      <div class="col-4 text-right align-self-center">{{prettyDate}}</div>
+      <!-- prettyUpdatedAt requires update after edit -->
+      <div class="col-4 text-right align-self-center">{{prettyUpdatedAt}}</div>
     </div>
-    <div class="row border border-info mx-1" v-if="bug.closed" :style="{color:isClosed.color}">
+    <!-- V-SHOW BUG CLOSED -->
+    <div class="row border border-info mx-1" v-show="bug.closed" :style="{color:isClosed.color}">
       <div class="col-3">
         <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">{{bug.title}}</router-link>
       </div>
@@ -31,7 +33,11 @@
           @click="toggleEdit"
         ></i>
       </div>
-      <div class="col-4 text-right align-self-center">{{prettyDate}}</div>
+      <div class="col-4 text-right align-self-center">
+        <!-- Found the updatedAt and closedDate are the same if bug.closed -->
+        <!-- {{prettyUpdatedAt}}<br /> -->
+        {{prettyClosedDate}}
+      </div>
     </div>
     <!-- EDIT BUG FORM -->
     <div v-if="edit">
@@ -84,13 +90,26 @@ export default {
         color: "#999"
       },
       // closed: this.bug.closed,
-      prettyDate: new Date(this.bug.updatedAt).toLocaleDateString("eu-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }),
+      prettyUpdatedAt: new Date(this.bug.updatedAt).toLocaleDateString(
+        "eu-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      ),
+      prettyClosedDate: new Date(this.bug.closedDate).toLocaleDateString(
+        "eu-US",
+        {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      ),
       edit: false
     };
   },
@@ -111,7 +130,7 @@ export default {
     },
     editBug() {
       let data = this.$store.dispatch("editBug", this.bug);
-      this.prettyDate = this.bug.updatedAt;
+      this.prettyUpdatedAt = this.bug.updatedAt;
       this.edit = false;
     },
     closeBug() {
@@ -130,6 +149,7 @@ export default {
           swal("Poof! Your comment has been closed!", {
             icon: "success"
           });
+          this.prettyClosedDate = this.bug.closedDate;
           this.edit = false;
         } else {
           swal("Close cancelled");

@@ -2,10 +2,10 @@
   <div class="home">
     <h1
       class="text-center m-5"
-      v-if="!$auth.isAuthenticated"
+      v-show="!$auth.isAuthenticated"
       :style="{color:color}"
     >Please log in to access the bug logs!</h1>
-    <div class="container-fluid" v-if="$auth.isAuthenticated">
+    <div class="container-fluid" v-show="$auth.isAuthenticated">
       <div class="row">
         <!-- ADD BUG FORM -->
         <div class="col-12 mt-3" v-show="bugForm">
@@ -53,10 +53,12 @@
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
         <div class="col-2 text-center font-weight-bold mb-2">
           Is Closed&nbsp;
-          <!-- <i class="fas fa-filter action" @click="toggleBugForm"></i> -->
+          <i class="fas fa-filter"></i>
+          <!-- <i class="fas fa-filter action" @click="toggleFilter">Is Closed</i> -->
         </div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
         <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
+        <!-- <bug v-for="bug in bugs" :key="bug.id" :bug="bug" v-show="this.closedFilter" /> -->
       </div>
     </div>
   </div>
@@ -70,7 +72,7 @@ export default {
     return {
       color: "#F00",
       bugForm: false,
-      // filter: false,
+      // closedFilter: "!bug.closed",
       newBug: {}
     };
   },
@@ -82,12 +84,20 @@ export default {
       this.bugForm = !this.bugForm;
     },
     // toggleFilter() {
-    //   this.filter = !this.filter;
+    //   debugger;
+    //   if (closedFilter == "!bug.closed") {
+    //     this.closedFilter = "bug.closed";
+    //   } else {
+    //     this.closedFilter = "!bug.closed";
+    //   }
     // },
     addBug() {
       this.$store.dispatch("addBug", { ...this.newBug });
       this.newBug = {};
       this.bugForm = false;
+      //FIXME this will need to be async?
+      // how to pull the id from the new bug to route to the BugReport?
+      this.$router.push(res.data.id);
     }
   },
   computed: {
