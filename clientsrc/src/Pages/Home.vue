@@ -57,8 +57,18 @@
           <i class="fas fa-filter action" @click="toggleFilter">{{this.closedFilter}}</i>
         </div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
-        <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
-        <!-- <bug v-for="bug in bugs" :key="bug.id" :bug="bug" v-if="this.closedFilter" /> -->
+
+        <div style="width:100%;" v-if="this.closedFilter === 'All'">
+          <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
+        </div>
+        <div style="width:100%;" v-else-if="this.closedFilter === 'Closed'">
+          <bug v-for="bug in bugsClosed" :key="bug.id" :bug="bug" />
+        </div>
+        <div style="width:100%;" v-else-if="this.closedFilter === 'Open'">
+          <bug v-for="bug in bugsOpen" :key="bug.id" :bug="bug" />
+        </div>
+
+        <!-- <bug v-for="bug in bugs" :key="bug.id" :bug="bug" /> -->
       </div>
     </div>
   </div>
@@ -73,7 +83,7 @@ export default {
       color: "#F00",
       bugForm: false,
       // closedFilter: false,
-      closedFilter: "!bug.closed",
+      closedFilter: "All",
       newBug: {}
     };
   },
@@ -87,10 +97,10 @@ export default {
     toggleFilter() {
       // this.closedFilter = !this.closedFilter;
 
-      if (this.closedFilter == "!bug.closed") {
-        this.closedFilter = "bug.closed";
+      if (this.closedFilter == "Open") {
+        this.closedFilter = "Closed";
       } else {
-        this.closedFilter = "!bug.closed";
+        this.closedFilter = "Open";
       }
     },
     addBug() {
