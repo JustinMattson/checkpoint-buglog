@@ -19,7 +19,11 @@
       <div class="col-4 text-right align-self-center">{{prettyUpdatedAt}}</div>
     </div>
     <!-- V-SHOW BUG CLOSED -->
-    <div class="row border border-info mx-1" v-show="bug.closed" :style="{color:isClosed.color}">
+    <div
+      class="row border border-info mx-1"
+      v-show="bug.closed"
+      :style="{color:isClosed.color,backgroundColor:bgColor}"
+    >
       <div class="col-3">
         <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">{{bug.title}}</router-link>
       </div>
@@ -88,6 +92,8 @@ export default {
       isClosed: {
         color: "#999"
       },
+      bgColor: "#DDF",
+
       prettyUpdatedAt: new Date(this.bug.updatedAt).toLocaleDateString(
         "eu-US",
         {

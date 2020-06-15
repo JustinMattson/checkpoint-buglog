@@ -23,9 +23,9 @@
     <div>Description:</div>
     <div class="bg-white rounded border border-secondary px-2 shadow">{{bug.description}}</div>
     <span class="d-flex justify-content-between">
-      <small>{{bug.id}}</small>
+      <!-- <small>{{bug.id}}</small> -->
       <small>Last Updated: {{bug.updatedAt}}</small>
-      <i class="fas fa-plus text-success action" @click="toggleNote">Add Note</i>
+      <i class="fas fa-plus text-success action" @click="toggleNote" v-show="!bug.closed">Add Note</i>
     </span>
 
     <!-- ADD NOTES FORM-->
@@ -66,7 +66,7 @@
 import Note from "@/components/NoteComponent.vue";
 export default {
   name: "bugreport",
-  props: ["notes", "profile"],
+  props: [],
   data() {
     return {
       noteForm: false,
