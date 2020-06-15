@@ -121,13 +121,12 @@ export default {
           swal("Poof! Your comment has been closed!", {
             icon: "success"
           });
+          this.edit = false;
         } else {
           swal("Close cancelled");
         }
       });
       this.bug.closed = true;
-      debugger;
-      this.edit = false;
     }
   },
   components: {

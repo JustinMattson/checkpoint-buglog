@@ -29,7 +29,7 @@ export default {
       //this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("getProfile");
-      // this.$store.dispatch("getBugList");
+      this.$store.dispatch("getBugList");
     }
   },
   components: {

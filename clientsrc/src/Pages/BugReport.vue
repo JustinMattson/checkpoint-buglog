@@ -1,11 +1,27 @@
 <template>
   <div class="bugreport container-fluid">
-    <h1 class="mt-3">{{bug.title}}</h1>
-    <div>
-      <b>Reported by: {{bug.creator.name}}</b>
+    <div class="d-flex justify-content-between">
+      <span class="mt-3" style="fontSize:24pt;">
+        <b>{{bug.title}}</b>
+      </span>
+      <span class="mt-3" style="fontSize:24pt;">Closed: {{bug.closed}}</span>
+      <!-- <span class="mt-3" style="fontSize:24pt;">{{this.status}}</span> -->
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <span>
+        <b>Reported by: {{bug.creator.name}}</b>
+      </span>
+      <span>
+        <i
+          class="fas fa-virus-slash text-warning action text-shadow"
+          @click="closeBug"
+          v-show="!bug.closed && profile.email == bug.creatorEmail"
+        >&nbsp;Kill</i>
+      </span>
     </div>
     <div>Description:</div>
-    <div class="bg-white">{{bug.description}}</div>
+    <div class="bg-white border border-secondary px-2">{{bug.description}}</div>
     <span class="d-flex justify-content-between">
       <small>{{bug.id}}</small>
       <small>Last Updated: {{bug.updatedAt}}</small>
@@ -30,12 +46,12 @@
     </form>
 
     <!-- NOTES section -->
-    <div class="row border mx-1 mt-3">
+    <div class="row border mx-1 mt-3" style="font-weight:bold;">
       <div class="col-3 align-self-center">Reported By</div>
       <div class="col-8">Message</div>
       <div class="col-1 text-center align-self-center">Delete</div>
     </div>
-    {{profile.email}}
+    <!-- {{profile.email}} -->
     <note v-for="note in notes" :key="note.id" :note="note" />
   </div>
 </template>
@@ -49,6 +65,7 @@ export default {
   data() {
     return {
       noteForm: false,
+      status: "",
       newNote: {
         bug: this.$route.params.bugId
         // creatorEmail: this.profile.email
@@ -58,6 +75,7 @@ export default {
   mounted() {
     this.$store.dispatch("getActiveBug", this.$route.params.bugId);
     this.$store.dispatch("getNotes", this.$route.params.bugId);
+    this.bug.closed ? (this.status = "Closed") : (this.status = "Open");
   },
   computed: {
     bug() {
@@ -69,6 +87,9 @@ export default {
     profile() {
       return this.$store.state.profile;
     }
+    // bugStatus() {
+    //   this.bug.closed ? (this.status = "Closed") : (this.status = "Open");
+    // }
   },
   methods: {
     toggleNote() {
@@ -81,6 +102,28 @@ export default {
         // email: this.profile.email
       };
       this.noteForm = false;
+    },
+    closeBug() {
+      // Icon is not showing
+      swal({
+        title: "Are you sure?",
+        text:
+          "Click 'Ok' to confirm you wish to close this Bug.  This action cannot be undone.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(willDelete => {
+        if (willDelete) {
+          let data = this.$store.dispatch("closeBug", this.bug);
+
+          swal("Poof! Your comment has been closed!", {
+            icon: "success"
+          });
+          this.bug.closed = true;
+        } else {
+          swal("Close cancelled");
+        }
+      });
     }
   },
   components: {
@@ -91,4 +134,7 @@ export default {
 
 
 <style scoped>
+.text-shadow {
+  text-shadow: 1px 1px black;
+}
 </style>

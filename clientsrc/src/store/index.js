@@ -46,7 +46,6 @@ export default new Vuex.Store({
     },
     // FIXME adding note is not forcing the render of new data.
     newNote(state, note) {
-      debugger;
       state.notes[note.bug].push(note);
     },
     removeNote(state, note) {
