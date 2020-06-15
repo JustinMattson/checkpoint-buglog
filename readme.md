@@ -127,7 +127,7 @@ Delete
 [+] - At least 2 supported front end routes
 [+] - Home shows all bugs
 [+] - BugDetails displays the details of a bug and its Notes
-[ ] - Bugs can be filtered by their status
+[+] - Bugs can be filtered by their status
 [ ] - Creating a new bug automatically navigates to the BugDetails view
 [+] - Navbar to allow navigating back to Home view
 [+] - Styling Indication on main page that bug is closed (color, strike-through, etc.)

@@ -52,9 +52,9 @@
         <div class="col-3 text-center font-weight-bold mb-2">Title</div>
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
         <div class="col-2 text-center font-weight-bold mb-2">
-          Is Closed&nbsp;
-          <!-- <i class="fas fa-filter"></i> -->
-          <i class="fas fa-filter action" @click="toggleFilter">{{this.closedFilter}}</i>
+          Is Closed
+          <i class="fas fa-filter" @click="toggleFilter"></i>
+          <!-- <i class="fas fa-filter action" @click="toggleFilter">{{this.closedFilter}}</i> -->
         </div>
         <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
 

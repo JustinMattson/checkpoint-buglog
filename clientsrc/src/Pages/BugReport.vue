@@ -4,7 +4,7 @@
       <span class="mt-3" style="fontSize:24pt;">
         <b>{{bug.title}}</b>
       </span>
-      <span class="mt-3" style="fontSize:24pt;">Closed: {{bug.closed}}</span>
+      <span class="mt-3" style="fontSize:24pt;">{{status}}</span>
       <!-- <span class="mt-3" style="fontSize:24pt;">{{this.status}}</span> -->
     </div>
 
