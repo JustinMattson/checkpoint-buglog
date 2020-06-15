@@ -18,6 +18,7 @@
     </div>
 
     <div class="d-flex justify-content-between">
+      <!-- NOTE this v-if is required to ensure that vue can get to the next level (.name) -->
       <span v-if="bug.creator">
         <b>Reported by: {{bug.creator.name}}</b>
       </span>
@@ -49,7 +50,7 @@
           name="noteMessage"
           class="rounded px-2"
           v-model="newNote.content"
-          placeholder="Note Message..."
+          placeholder="Press refresh after adding note to render new note to the page..."
           style="width:100%;height:5em;"
           required
         />
@@ -112,7 +113,7 @@ export default {
       this.noteForm = !this.noteForm;
     },
     addNote() {
-      this.$store.dispatch("addNote", this.newNote);
+      this.$store.dispatch("addNote", { ...this.newNote });
       this.newNote = {
         bug: this.$route.params.bugId
         // email: this.profile.email

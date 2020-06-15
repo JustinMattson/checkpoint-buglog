@@ -1,13 +1,13 @@
 <template>
   <div class="note">
-    <div class="row border rounded border-success m-1 shadow bg-white" v-if="note.creator">
-      <div class="col-3 align-self-center">{{note.creator.name}}</div>
+    <div class="row border rounded border-success m-1 shadow bg-white">
+      <div class="col-3 align-self-center">{{note.creatorEmail}}</div>
       <div class="col-8">{{note.content}}</div>
       <div class="col-1 text-center align-self-center">
         <i
           class="far fa-trash-alt text-danger action"
           @click="deleteNote"
-          v-if="!bug.closed && note.creatorEmail == profile.email"
+          v-show="!bug.closed && note.creatorEmail == profile.email"
         ></i>
       </div>
       <!-- REVIEW if time permits, updating a comment is not required by the user story -->
@@ -43,15 +43,16 @@ export default {
       })
     };
   },
-  mounted() {
-    // this.$store.dispatch("getActiveBug", this.$route.params.bugId);
-  },
+  mounted() {},
   computed: {
     bug() {
       return this.$store.state.activeBug;
     },
     profile() {
       return this.$store.state.profile;
+    },
+    notes() {
+      return this.$store.state.notes;
     }
   },
   methods: {

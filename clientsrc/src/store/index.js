@@ -32,8 +32,8 @@ export default new Vuex.Store({
     addBug(state, bug) {
       state.bugs.push(bug);
     },
-    // FIXME updateBug is not forcing render of udpated data.
-    // Is Closed status and Last Updated should update - why?
+    // REVIEW updateBug is not forcing render of udpated data.
+    // checkout the review below on newNote:
     updateBug(state, update) {
       let foundBug = state.bugs.find((b) => b.id == update.id);
       foundBug = update;
@@ -46,7 +46,9 @@ export default new Vuex.Store({
       // Vue.set(state.notes, notes.bugId, notes.data);
     },
     // REVIEW adding note is not forcing the render of new data.
-    // due to notes is a simple array now - fixed
+    // due to notes is a simple array now - fixed that
+    // still doesn't refresh because the new note does not have
+    // a note.creator until after refresh is performed.
     newNote(state, note) {
       state.notes.push(note);
     },
@@ -87,8 +89,8 @@ export default new Vuex.Store({
         //   dispatch("getBugList");
         // });
         let res = await api.post("bugs", bugData);
-        debugger;
         dispatch("getBugList");
+        router.push({ name: "bug", params: { bugId: res.data.id } });
         return res.data;
       } catch (error) {
         console.error(error);
@@ -126,6 +128,7 @@ export default new Vuex.Store({
       }
     },
     // FIXME Page is not refreshing when not is committed to store.
+    // because the .populate does not exist for .create.
     async addNote({ commit, dispatch }, data) {
       try {
         let res = await api.post("notes", data);

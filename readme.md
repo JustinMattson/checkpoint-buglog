@@ -26,7 +26,7 @@ Here are some mock-ups from the client.
 From the Home page:
 [+] users can view all the bugs that have been added,
 [+] color coded to which are open and closed(by status).
-[ ] You should be able to filter the bugs based on their status(open or closed).
+[+] You should be able to filter the bugs based on their status(open or closed).
 
 #### Challenges
 
@@ -46,9 +46,9 @@ From the Home page:
   <img class="img-responsive"  style="border: 1px solid black;padding: 10px"  src="AddComment.jpg" />
 </div>
 
-[ ] The details view provides some additional information about the bug, as well as
-[ ] showing all the notes made by other users.
-[ ] Here notes can be created or removed.
+[+] The details view provides some additional information about the bug, as well as
+[+] showing all the notes made by other users.
+[+] Here notes can be created or removed.
 
 #### Challenges:
 
@@ -128,7 +128,7 @@ Delete
 [+] - Home shows all bugs
 [+] - BugDetails displays the details of a bug and its Notes
 [+] - Bugs can be filtered by their status
-[ ] - Creating a new bug automatically navigates to the BugDetails view
+[+] - Creating a new bug automatically navigates to the BugDetails view
 [+] - Navbar to allow navigating back to Home view
 [+] - Styling Indication on main page that bug is closed (color, strike-through, etc.)
 [+] - Bugs display last modified date
