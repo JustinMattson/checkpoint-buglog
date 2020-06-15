@@ -21,7 +21,7 @@
       </span>
     </div>
     <div>Description:</div>
-    <div class="bg-white border border-secondary px-2">{{bug.description}}</div>
+    <div class="bg-white rounded border border-secondary px-2 shadow">{{bug.description}}</div>
     <span class="d-flex justify-content-between">
       <small>{{bug.id}}</small>
       <small>Last Updated: {{bug.updatedAt}}</small>
@@ -29,19 +29,24 @@
     </span>
 
     <!-- ADD NOTES FORM-->
-    <form class="form mt-3" @submit.prevent="addNote" v-if="$auth.isAuthenticated && noteForm">
+    <form
+      class="form mt-3 rounded"
+      @submit.prevent="addNote"
+      v-if="$auth.isAuthenticated && noteForm"
+    >
       <div class="form-group">
         <textarea
           type="text"
           name="noteMessage"
+          class="rounded px-2"
           v-model="newNote.content"
           placeholder="Note Message..."
           style="width:100%;height:5em;"
           required
         />
         <!-- <input type="text" v-model="newNote.creatorEmail" placeholder="email here.." /> -->
-        <button class="btn btn-outline-success" type="submit">Add Note</button>
-        <button class="btn btn-outline-danger ml-2" type="button" @click="toggleNote">Cancel</button>
+        <button class="btn btn-outline-success shadow" type="submit">Add Note</button>
+        <button class="btn btn-outline-danger ml-2 shadow" type="button" @click="toggleNote">Cancel</button>
       </div>
     </form>
 

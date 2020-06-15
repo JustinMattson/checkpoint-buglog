@@ -2,7 +2,7 @@
   <div class="bug container-fluid">
     <!-- This is the component that will draw each bug item.
     Embedded within this componet will be the notes component.-->
-    <div class="row border border-info mx-1" v-if="!bug.closed">
+    <div class="row border rounded border-primary m-1 bg-white shadow" v-if="!bug.closed">
       <div class="col-3">
         <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">{{bug.title}}</router-link>
       </div>
@@ -40,6 +40,7 @@
           <input
             type="text"
             name="title"
+            class="rounded px-2"
             v-model="bug.title"
             placeholder="Bug Title..."
             style="width:100%;"
@@ -48,14 +49,22 @@
           <textarea
             type="text"
             name="description"
+            class="rounded px-2"
             v-model="bug.description"
             placeholder="Bug Description..."
             style="width:100%;height:15em;"
             required
           />
           <span class="d-flex justify-content-between">
-            <button class="btn btn-outline-primary" type="submit">Update Bug</button>
-            <button class="btn btn-outline-success" type="button" @click="closeBug">Close Bug</button>
+            <span>
+              <button class="btn btn-outline-primary shadow" type="submit">Update Bug</button>
+              <button
+                class="btn btn-outline-danger shadow ml-2"
+                type="button"
+                @click="toggleEdit"
+              >Cancel</button>
+            </span>
+            <button class="btn btn-outline-success shadow" type="button" @click="closeBug">Close Bug</button>
           </span>
         </div>
       </form>

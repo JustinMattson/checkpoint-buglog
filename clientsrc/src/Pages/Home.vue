@@ -14,6 +14,7 @@
               <input
                 type="text"
                 name="title"
+                class="rounded px-2"
                 v-model="newBug.title"
                 placeholder="Bug Title..."
                 style="width:100%;"
@@ -22,14 +23,15 @@
               <textarea
                 type="text"
                 name="description"
+                class="rounded px-2"
                 v-model="newBug.description"
                 placeholder="Bug Description..."
                 style="width:100%;height:15em;"
                 required
               />
-              <button class="btn btn-outline-primary" type="submit">Submit Bug</button>
+              <button class="btn btn-outline-primary shadow" type="submit">Submit Bug</button>
               <button
-                class="btn btn-outline-danger ml-2"
+                class="btn btn-outline-danger ml-2 shadow"
                 type="button"
                 @click="toggleBugForm"
               >Cancel</button>
@@ -39,7 +41,7 @@
         <!-- BUG FORM TOGGLE -->
         <div class="col-12 d-flex justify-content-end mt-3" v-if="!bugForm">
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary shadow"
             @click="toggleBugForm"
             v-if="$auth.isAuthenticated"
           >Report Bug</button>
