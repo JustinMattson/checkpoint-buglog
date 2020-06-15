@@ -2,7 +2,7 @@
   <div class="bug container-fluid">
     <!-- This is the component that will draw each bug item.
     Embedded within this componet will be the notes component.-->
-    <!-- V-SHOW OPEN -->
+    <!-- V-SHOW BUG OPEN -->
     <div class="row border rounded border-primary m-1 bg-white shadow" v-show="!bug.closed">
       <div class="col-3">
         <router-link :to="{ name: 'bug', params: { bugId: bug.id}}">{{bug.title}}</router-link>
@@ -16,7 +16,6 @@
           @click="toggleEdit"
         ></i>
       </div>
-      <!-- prettyUpdatedAt requires update after edit -->
       <div class="col-4 text-right align-self-center">{{prettyUpdatedAt}}</div>
     </div>
     <!-- V-SHOW BUG CLOSED -->
@@ -89,7 +88,6 @@ export default {
       isClosed: {
         color: "#999"
       },
-      // closed: this.bug.closed,
       prettyUpdatedAt: new Date(this.bug.updatedAt).toLocaleDateString(
         "eu-US",
         {
@@ -113,16 +111,11 @@ export default {
       edit: false
     };
   },
-  // mounted() {
-  //   isClosed = this.bug.closed;
-  // },
+
   computed: {
     profile() {
       return this.$store.state.profile;
     }
-    // notes() {
-    //   return this.$Store.state.notes[this.bug.id];
-    // }
   },
   methods: {
     toggleEdit() {
@@ -134,7 +127,6 @@ export default {
       this.edit = false;
     },
     closeBug() {
-      // Icon is not showing
       swal({
         title: "Are you sure?",
         text:
