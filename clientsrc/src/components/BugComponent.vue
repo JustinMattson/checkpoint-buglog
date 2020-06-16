@@ -20,7 +20,7 @@
     </div>
     <!-- V-SHOW BUG CLOSED -->
     <div
-      class="row border border-info mx-1"
+      class="row border border-info m-1"
       v-show="bug.closed"
       :style="{color:isClosed.color,backgroundColor:bgColor}"
     >

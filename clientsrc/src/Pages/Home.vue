@@ -52,11 +52,14 @@
         <div class="col-3 text-center font-weight-bold mb-2">Title</div>
         <div class="col-3 text-center font-weight-bold mb-2">Created By</div>
         <div class="col-2 text-center font-weight-bold mb-2">
-          Is Closed
-          <i class="fas fa-filter" @click="toggleFilter"></i>
-          <!-- <i class="fas fa-filter action" @click="toggleFilter">{{this.closedFilter}}</i> -->
+          <i class="fas fa-recycle action" @click="resetFilter"></i>
+          Closed
+          <i class="fas fa-filter action" @click="toggleFilter"></i>
         </div>
-        <div class="col-4 text-center font-weight-bold mb-2">Last Updated</div>
+        <div class="col-4 text-center font-weight-bold mb-2">
+          <i class="fas fa-sort-up action" @click="bugSortAsc"></i>&nbsp;Last Updated
+          <i class="fas fa-sort-down action" @click="bugSortDesc"></i>
+        </div>
 
         <div style="width:100%;" v-if="this.closedFilter === 'All'">
           <bug v-for="bug in bugs" :key="bug.id" :bug="bug" />
@@ -82,56 +85,57 @@ export default {
     return {
       color: "#F00",
       bugForm: false,
-      // closedFilter: false,
       closedFilter: "All",
+      sort: true,
       newBug: {}
     };
   },
   mounted() {
     this.$store.dispatch("getBugList");
+    //  this.$store.dispatch("getBugList").sort((a, b) => a.updatedAt - b.updatedAt);
   },
   methods: {
     toggleBugForm() {
       this.bugForm = !this.bugForm;
     },
     toggleFilter() {
-      // this.closedFilter = !this.closedFilter;
-
       if (this.closedFilter == "Open") {
         this.closedFilter = "Closed";
       } else {
         this.closedFilter = "Open";
       }
     },
+    resetFilter() {
+      this.closedFilter = "All";
+    },
+    toggleSort() {
+      if (this.sort == "desc") {
+        this.sort = "asc";
+      } else {
+        this.sort = "desc";
+      }
+    },
     addBug() {
       this.$store.dispatch("addBug", { ...this.newBug });
       this.newBug = {};
       this.bugForm = false;
+    },
+    bugSortAsc() {
+      function compare(a, b) {
+        if (a.updatedAt < b.updatedAt) return -1;
+        if (a.updatedAt > b.updatedAt) return 1;
+        return 0;
+      }
+      return this.bugs.sort(compare);
+    },
+    bugSortDesc() {
+      function compare(a, b) {
+        if (a.updatedAt < b.updatedAt) return 1;
+        if (a.updatedAt > b.updatedAt) return -1;
+        return 0;
+      }
+      return this.bugs.sort(compare);
     }
-    // https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
-    // compareValues(key, order = 'asc') {
-    //   return function innerSort(a, b) {
-    //     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-    //       // property doesn't exist on either object
-    //       return 0;
-    //     }
-
-    //     const varA = (typeof a[key] === 'string')
-    //       ? a[key].toUpperCase() : a[key];
-    //     const varB = (typeof b[key] === 'string')
-    //       ? b[key].toUpperCase() : b[key];
-
-    //     let comparison = 0;
-    //     if (varA > varB) {
-    //       comparison = 1;
-    //     } else if (varA < varB) {
-    //       comparison = -1;
-    //     }
-    //     return (
-    //       (order === 'desc') ? (comparison * -1) : comparison
-    //     );
-    //   };
-    // },
   },
   computed: {
     bugs() {
