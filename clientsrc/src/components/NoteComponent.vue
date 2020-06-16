@@ -1,6 +1,11 @@
 <template>
   <div class="note">
     <div class="row border rounded border-success m-1 shadow bg-white">
+      <!-- REVIEW I wanted to use note.creator.name in the div below, however
+      even though vue would see the new note being added to the notes array, and
+      the new note was being properly committed to the store, because the .name
+      was two levels deep, vue would not render the new note to the screen; even
+      with v-if="note.creator" in the line above.-->
       <div class="col-3 align-self-center">{{note.creatorEmail}}</div>
       <div class="col-8">{{note.content}}</div>
       <div class="col-1 text-center align-self-center">
