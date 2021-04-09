@@ -1,6 +1,6 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import auth0provider from "@bcwdev/auth0provider";
+import { Auth0Provider } from "@bcwdev/auth0Provider";
 import { noteService } from "../services/NoteService";
 import { bugService } from "../services/BugService";
 
@@ -8,7 +8,7 @@ export class NotesController extends BaseController {
   constructor() {
     super("api/notes");
     this.router
-      .use(auth0provider.getAuthorizedUserInfo)
+      .use(Auth0provider.getAuthorizedUserInfo)
       .post("", this.create)
       // .put("/:id", this.edit)  // Stretchy
       .delete("/:id", this.delete);

@@ -1,6 +1,6 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import auth0provider from "@bcwdev/auth0provider";
+import { Auth0Provider } from "@bcwdev/auth0Provider";
 import { bugService } from "../services/BugService";
 import { noteService } from "../services/NoteService";
 
@@ -11,7 +11,7 @@ export class BugsController extends BaseController {
       .get("", this.getAll)
       .get("/:id", this.getById)
       .get("/:id/notes", this.getNotesByBugId)
-      .use(auth0provider.getAuthorizedUserInfo)
+      .use(Auth0provider.getAuthorizedUserInfo)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.close);
