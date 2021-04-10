@@ -1,6 +1,6 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import { Auth0Provider } from "@bcwdev/auth0Provider";
+import { Auth0Provider } from "@bcwdev/auth0provider";
 import { bugService } from "../services/BugService";
 import { noteService } from "../services/NoteService";
 
