@@ -11,7 +11,7 @@ export class BugsController extends BaseController {
       .get("", this.getAll)
       .get("/:id", this.getById)
       .get("/:id/notes", this.getNotesByBugId)
-      .use(Auth0provider.getAuthorizedUserInfo)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.close);

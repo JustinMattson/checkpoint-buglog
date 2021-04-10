@@ -8,7 +8,7 @@ export class NotesController extends BaseController {
   constructor() {
     super("api/notes");
     this.router
-      .use(Auth0provider.getAuthorizedUserInfo)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)
       // .put("/:id", this.edit)  // Stretchy
       .delete("/:id", this.delete);
